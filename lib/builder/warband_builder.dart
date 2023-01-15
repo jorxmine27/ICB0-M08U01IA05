@@ -68,10 +68,7 @@ class WarbandWidgets {
             ),
           ),
           Container(
-              height: 100, 
-              width: screenWidth * 0.55, 
-              color: Colors.black
-            ),
+              height: 100, width: screenWidth * 0.55, color: Colors.black),
           Container(
               height: 100,
               width: screenWidth * 0.15,
@@ -163,7 +160,8 @@ class WarbandWidgets {
                                       ]),
                                 ),
                                 onTap: () {
-                                  idFaction = snapshot.data[itemPosition].id_faction;
+                                  idFaction =
+                                      snapshot.data[itemPosition].id_faction;
                                   _showUpdateWarbandSheet(context, idFaction);
                                 },
                               )));
@@ -245,11 +243,12 @@ class WarbandWidgets {
                                 onPressed: () {
                                   var newWarband = Warband(
                                       id: importAlliance.id,
-                                      warband: warbansNameFormController.value.text,
-                                      alliance: importAlliance.name[importAlliance.id]
-                                      );
+                                      warband:
+                                          warbansNameFormController.value.text,
+                                      alliance: importAlliance
+                                          .name[importAlliance.id]);
                                   if (newWarband.warband != null) {
-                                    warbandBloc.addWarband(newWarband);
+                                    warbandDao.createWarband(newWarband);
                                     Navigator.pop(context);
                                   }
                                 },
@@ -332,10 +331,13 @@ class WarbandWidgets {
                                   var updateWarband = Warband(
                                       id: importAlliance.id,
                                       id_faction: idFaction,
-                                      warband: warbansNameFormController.value.text,
-                                      alliance: importAlliance.name[importAlliance.id]);
+                                      warband:
+                                          warbansNameFormController.value.text,
+                                      alliance: importAlliance
+                                          .name[importAlliance.id]);
                                   if (updateWarband.warband != null) {
-                                    warbandBloc.updateWarband(updateWarband, idFaction);
+                                    warbandDao.updateWarband(
+                                        updateWarband, idFaction);
                                     getWarbandWidget(importAlliance.id);
                                     Navigator.pop(context);
                                   }
@@ -414,10 +416,8 @@ class WarbandWidgets {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  warbandAPIProvider.getWarband(importAlliance.id);
-                                  warbandBloc.deleteWarbandByNameNotEqual(
-                                      warbandSearchName.value.text
-                                    );
+                                  warbandDao.deleteWarbandsByNameNotEqualTo(
+                                      warbandSearchName.value.text);
                                   Navigator.pop(context);
                                 },
                               ),
